@@ -14,6 +14,7 @@ const Main = () => {
     resultData,
     setInput,
     input,
+    setImage,
   } = useContext(Context);
 
   return (
@@ -80,7 +81,7 @@ const Main = () => {
               placeholder="Enter a prompt here"
             />
             <div>
-              <ImageUpload />
+              <ImageUpload onImageSelect={setImage} />
               <VoiceInput setInput={setInput} />
               {input ? (
                 <img onClick={() => onSent()} src={assets.send_icon} alt="" />

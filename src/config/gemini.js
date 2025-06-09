@@ -14,14 +14,37 @@ const generationConfig = {
   maxOutputTokens: 8192,
 };
 
-async function run(prompt) {
-  const chatSession = model.startChat({
+async function fileToGenerativePart(file) {
+  const base64EncodedDataPromise = new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.onloadend = () => resolve(reader.result.split(',')[1]);
+    reader.readAsDataURL(file);
+  });
+  return {
+    inlineData: {
+      data: await base64EncodedDataPromise,
+      mimeType: file.type,
+    },
+  };
+}
+
+async function run(prompt, image) {
+  let parts;
+  if (image) {
+    const imagePart = await fileToGenerativePart(image);
+    parts = [prompt, imagePart];
+  } else {
+    parts = [prompt];
+  }
+
+  const result = await model.generateContent({
+    contents: [{
+      role: "user",
+      parts: parts
+    }],
     generationConfig,
-    history: [],
   });
 
-  const result = await chatSession.sendMessage(prompt);
-  console.log(result.response.text());
   return result.response.text();
 }
 

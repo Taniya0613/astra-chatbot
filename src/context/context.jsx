@@ -10,6 +10,7 @@ const ContextProvider = (props) => {
   const [showResult, setShowResult] = useState(false);
   const [loading, setLoading] = useState(false);
   const [resultData, setResultData] = useState("");
+  const [image, setImage] = useState(null);
 
   const delayPara = (index, nextWord) => {
     setTimeout(function () {
@@ -17,10 +18,11 @@ const ContextProvider = (props) => {
     }, 75 * index);
   };
 
-  const newChat = () =>{
-    setLoading(false)
-    setShowResult(false)
-  }
+  const newChat = () => {
+    setLoading(false);
+    setShowResult(false);
+    setImage(null);
+  };
 
   const onSent = async (prompt) => {
     setResultData("");
@@ -28,12 +30,12 @@ const ContextProvider = (props) => {
     setShowResult(true);
     let response;
     if (prompt !== undefined) {
-      response = await run(prompt);
+      response = await run(prompt, image);
       setRecentPrompt(prompt);
     } else {
       setPrevPrompts((prev) => [...prev, input]);
       setRecentPrompt(input);
-      response = await run(input);
+      response = await run(input, image);
     }
 
     let responseArray = response.split("**");
@@ -53,6 +55,7 @@ const ContextProvider = (props) => {
     }
     setLoading(false);
     setInput("");
+    setImage(null);
   };
 
   const contextValue = {
@@ -66,7 +69,8 @@ const ContextProvider = (props) => {
     resultData,
     input,
     setInput,
-    newChat
+    newChat,
+    setImage,
   };
 
   return (

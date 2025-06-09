@@ -2,7 +2,7 @@ import React from "react";
 import { assets } from "../assets/assets";
 import SpeechRecognition, {
   useSpeechRecognition,
-} from "react-speechrecognition";
+} from "react-speech-recognition";
 
 const VoiceInput = ({ setInput }) => {
   const {
