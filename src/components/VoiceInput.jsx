@@ -1,31 +1,47 @@
-import React, { useState } from "react";
+import React from "react";
 import { assets } from "../assets/assets";
+import SpeechRecognition, {
+  useSpeechRecognition,
+} from "react-speechrecognition";
 
 const VoiceInput = ({ setInput }) => {
-  const [listening, setListening] = useState(false);
+  const {
+    transcript,
+    listening,
+    browserSupportsSpeechRecognition,
+    resetTranscript,
+  } = useSpeechRecognition();
 
-  const startListening = () => {
-    const recognition = new window.webkitSpeechRecognition() || new window.SpeechRecognition();
-    recognition.lang = "en-US"; 
-    recognition.onstart = () => setListening(true);
-    recognition.onend = () => setListening(false);
-    
-    recognition.onresult = (event) => {
-      const transcript = event.results[0][0].transcript;
-      setInput(transcript);
-    };
+  if (!browserSupportsSpeechRecognition) {
+    return <span>Browser doesn't support speech recognition.</span>;
+  }
 
-    recognition.start();
+  const handleMicClick = () => {
+    if (listening) {
+      SpeechRecognition.stopListening();
+    } else {
+      resetTranscript(); // Clear previous transcript
+      SpeechRecognition.startListening({
+        continuous: false,
+        language: "en-US",
+      });
+    }
   };
 
+  React.useEffect(() => {
+    if (transcript) {
+      setInput(transcript);
+    }
+  }, [transcript, setInput]);
+
   return (
-    <img 
+    <img
       src={
-        assets.mic_icon
+        listening ? assets.mic_icon_active : assets.mic_icon // Assuming you have an active mic icon
       }
-      alt="Mic" 
-      onClick={startListening} 
-      style={{ cursor: "pointer" }} 
+      alt="Mic"
+      onClick={handleMicClick}
+      style={{ cursor: "pointer" }}
     />
   );
 };
