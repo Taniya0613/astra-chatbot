@@ -29,12 +29,15 @@ async function fileToGenerativePart(file) {
 }
 
 async function run(prompt, image) {
+  // Defensive: always use string
+  const promptText = typeof prompt === "string" ? prompt : String(prompt);
+
   let parts;
   if (image) {
     const imagePart = await fileToGenerativePart(image);
-    parts = [prompt, imagePart];
+    parts = [{ text: promptText }, imagePart];
   } else {
-    parts = [prompt];
+    parts = [{ text: promptText }];
   }
 
   const result = await model.generateContent({
