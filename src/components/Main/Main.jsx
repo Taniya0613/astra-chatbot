@@ -15,20 +15,35 @@ const Main = () => {
     setInput,
     input,
     setImage,
+    isAuthenticated,
+    logout,
   } = useContext(Context);
+
+  const user = isAuthenticated ? JSON.parse(localStorage.getItem('user') || '{}') : null;
 
   return (
     <div className="main">
       <div className="nav">
         <p>Astra</p>
-        <img src={assets.user_icon} alt="" />
+        <div className="nav-user">
+          {isAuthenticated && user ? (
+            <>
+              <span className="user-name">Hello, {user.name}!</span>
+              <button onClick={logout} className="logout-btn">
+                Logout
+              </button>
+            </>
+          ) : (
+            <img src={assets.user_icon} alt="" />
+          )}
+        </div>
       </div>
       <div className="main-container">
         {!showResult ? (
           <>
             <div className="greet">
               <p>
-                <span>Hello, Genius!</span>
+                <span>Hello, {isAuthenticated && user ? user.name : 'Genius'}!</span>
               </p>
               <p>What's on your mind today?</p>
             </div>

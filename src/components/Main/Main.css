@@ -20,6 +20,35 @@
   border-radius: 50%;
 }
 
+.nav-user {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.user-name {
+  font-size: 16px;
+  color: #a12626;
+  font-weight: 500;
+}
+
+.logout-btn {
+  background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(238, 90, 36, 0.3);
+}
+
 .main-container{
   max-width:900px;
   margin: auto;

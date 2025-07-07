@@ -9,5 +9,34 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    <script>
+      // Global function to copy code to clipboard
+      function copyCode(codeId) {
+        const codeElement = document.getElementById(codeId);
+        if (codeElement) {
+          const textToCopy = codeElement.textContent;
+          navigator.clipboard.writeText(textToCopy).then(() => {
+            // Show feedback
+            const button = codeElement.parentElement.previousElementSibling.querySelector('button');
+            const originalText = button.textContent;
+            button.textContent = 'Copied!';
+            button.style.background = '#28a745';
+            setTimeout(() => {
+              button.textContent = originalText;
+              button.style.background = '';
+            }, 2000);
+          }).catch(err => {
+            console.error('Failed to copy: ', err);
+            // Fallback for older browsers
+            const textArea = document.createElement('textarea');
+            textArea.value = textToCopy;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+          });
+        }
+      }
+    </script>
   </body>
 </html>
