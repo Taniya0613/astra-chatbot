@@ -1,3 +1,4 @@
+/* This is the overlay that covers the whole screen and darkens the background when the modal is open */
 .auth-modal-overlay {
   position: fixed;
   top: 0;
@@ -11,27 +12,38 @@
   justify-content: center;
   z-index: 1000;
   animation: fadeIn 0.3s ease-out;
+  min-height: 100vh;
+  padding: 32px 0;
 }
 
+/* This is the main modal box where the login/signup form appears */
 .auth-modal {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #fff 0%, #f3e8ff 100%);
   border-radius: 20px;
-  padding: 40px;
-  width: 90%;
-  max-width: 450px;
+  padding: 18px 22px;
+  width: 94%;
+  max-width: 420px;
   position: relative;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8px 32px rgba(80, 60, 120, 0.12);
   animation: slideUp 0.4s ease-out;
-  color: white;
+  color: #2d2250;
+  border: none;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  min-height: 440px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
+/* This is the close (X) button in the top right corner of the modal */
 .auth-modal-close {
   position: absolute;
   top: 20px;
   right: 20px;
-  background: rgba(255, 255, 255, 0.2);
+  background: #f3e8ff;
   border: none;
-  color: white;
+  color: #6d4eae;
   font-size: 24px;
   width: 40px;
   height: 40px;
@@ -40,104 +52,124 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
 
+/* When you hover over the close button, it gets a little bigger and changes color */
 .auth-modal-close:hover {
-  background: rgba(255, 255, 255, 0.3);
-  transform: scale(1.1);
+  background: #ede7f6;
+  color: #4b2e83;
+  transform: scale(1.08);
 }
 
+/* The header section with the big title and subtitle */
 .auth-modal-header {
   text-align: center;
   margin-bottom: 30px;
 }
 
 .auth-modal-header h2 {
-  font-size: 28px;
+  font-size: 2.1rem;
   font-weight: 700;
   margin-bottom: 8px;
-  background: linear-gradient(45deg, #fff, #f0f0f0);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  background: none;
+  color: #4b2e83;
+  -webkit-background-clip: unset;
+  -webkit-text-fill-color: unset;
+  background-clip: unset;
 }
 
 .auth-modal-header p {
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 16px;
+  color: #6d4eae;
+  font-size: 1.1rem;
   margin: 0;
 }
 
+/* The form itself, with all the input fields stacked vertically */
 .auth-form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 1px;
+  margin-bottom: 10px;
 }
 
+/* Each group of label and input in the form */
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 1px;
 }
 
+/* The label above each input field */
 .form-group label {
   font-weight: 600;
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.9);
+  font-size: 15px;
+  color: #4b2e83;
 }
 
+/* The input fields for email, password, etc. */
 .form-group input {
-  padding: 15px 20px;
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  padding: 7px 15px;
+  border: 2px solid #e0e0e0;
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
-  font-size: 16px;
+  background: #faf8ff;
+  color: #2d2250;
+  font-size: 13px;
   transition: all 0.3s ease;
   backdrop-filter: blur(10px);
+  font-weight: 500;
 }
 
+/* The placeholder text inside the input fields */
 .form-group input::placeholder {
-  color: rgba(255, 255, 255, 0.6);
+  color: #a09fc3;
+  opacity: 1;
+  font-weight: 400;
 }
 
+/* When you click into an input, it gets a purple border and a soft background */
 .form-group input:focus {
   outline: none;
-  border-color: rgba(255, 255, 255, 0.5);
-  background: rgba(255, 255, 255, 0.15);
-  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.1);
+  border-color: #b8a1e3;
+  background: #f3e8ff;
+  box-shadow: 0 0 0 4px #ede7f6;
 }
 
+/* The main button for submitting the form */
 .auth-submit-btn {
-  background: linear-gradient(45deg, #ff6b6b, #ee5a24);
-  color: white;
+  background: #6d4eae;
+  color: #fff;
   border: none;
-  padding: 16px 24px;
-  border-radius: 12px;
-  font-size: 16px;
-  font-weight: 600;
+  padding: 12px 22px;
+  border-radius: 14px;
+  font-size: 1.1rem;
+  font-weight: 700;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   margin-top: 10px;
-  box-shadow: 0 4px 15px rgba(238, 90, 36, 0.3);
+  box-shadow: 0 2px 8px rgba(80, 60, 120, 0.08);
 }
 
+/* When you hover over the submit button, it gets darker and pops up a bit */
 .auth-submit-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(238, 90, 36, 0.4);
+  background: #4b2e83;
+  transform: translateY(-1px) scale(1.02);
+  box-shadow: 0 4px 16px rgba(80, 60, 120, 0.13);
 }
 
+/* When you click the submit button, it goes back to normal */
 .auth-submit-btn:active {
   transform: translateY(0);
 }
 
+/* When the button is disabled, it looks faded and you can't click it */
 .auth-submit-btn:disabled {
   opacity: 0.7;
   cursor: not-allowed;
   transform: none;
 }
 
+/* The loading spinner that shows when waiting for login/signup */
 .loading-spinner {
   display: inline-block;
   animation: spin 1s linear infinite;
@@ -148,6 +180,7 @@
   100% { transform: rotate(360deg); }
 }
 
+/* The red error message box */
 .auth-error {
   background: rgba(255, 59, 48, 0.1);
   border: 1px solid rgba(255, 59, 48, 0.3);
@@ -159,6 +192,7 @@
   text-align: center;
 }
 
+/* The green success message box */
 .auth-success {
   background: rgba(52, 199, 89, 0.1);
   border: 1px solid rgba(52, 199, 89, 0.3);
@@ -170,53 +204,70 @@
   text-align: center;
 }
 
+/* The footer with the switch between login and signup */
 .auth-modal-footer {
   text-align: center;
   margin-top: 20px;
 }
 
 .auth-modal-footer p {
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 14px;
+  color: #6d4eae;
+  font-size: 1rem;
   margin: 0;
 }
 
+/* The button to switch between login and signup */
 .auth-toggle-btn {
-  background: none;
-  border: none;
-  color: #ffd93d;
-  font-weight: 600;
-  cursor: pointer;
-  text-decoration: underline;
-  transition: color 0.3s ease;
+  color: #ffb300;
 }
 
 .auth-toggle-btn:hover {
   color: #ffed4e;
 }
 
+/* The divider line with 'or' in the middle */
 .auth-divider {
   position: relative;
   text-align: center;
-  margin: 25px 0;
+  margin: 30px 0 20px 0;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.auth-divider::before {
+/* The lines on each side of the 'or' divider */
+.auth-divider::before,
+.auth-divider::after {
   content: '';
   position: absolute;
   top: 50%;
-  left: 0;
-  right: 0;
+  width: 40%;
   height: 1px;
-  background: rgba(255, 255, 255, 0.3);
+  background: #e0e0e0;
+  z-index: 1;
+}
+.auth-divider::before {
+  left: 0;
+}
+.auth-divider::after {
+  right: 0;
 }
 
 .auth-divider span {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding: 0 15px;
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 14px;
-  font-weight: 500;
+  position: relative;
+  background: #fff;
+  padding: 0 18px;
+  color: #a09fc3;
+  font-size: 1.05rem;
+  font-weight: 600;
+  z-index: 2;
+  border-radius: 12px;
+  box-shadow: none;
+}
+
+.auth-modal {
+  border: none;
 }
 
 .social-auth {
@@ -230,22 +281,23 @@
   align-items: center;
   justify-content: center;
   gap: 12px;
-  padding: 14px 20px;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
-  font-size: 16px;
-  font-weight: 500;
+  padding: 12px 22px;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 14px;
+  background: #faf8ff;
+  color: #4b2e83;
+  font-size: 1.1rem;
+  font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
   backdrop-filter: blur(10px);
+  box-shadow: 0 1px 4px rgba(80, 60, 120, 0.04);
 }
 
 .social-btn:hover {
-  background: rgba(255, 255, 255, 0.2);
-  border-color: rgba(255, 255, 255, 0.3);
-  transform: translateY(-1px);
+  background: #ede7f6;
+  color: #2d2250;
+  border-color: #d1c4e9;
 }
 
 .google-btn {
@@ -276,28 +328,38 @@
   }
 }
 
+.auth-modal.signup-mode {
+  min-height: 520px;
+}
+
 /* Responsive design */
 @media (max-width: 480px) {
   .auth-modal {
-    padding: 30px 20px;
-    margin: 20px;
+    padding: 16px 2px;
+    margin: 8px 0;
+    min-height: 320px;
+    max-width: 98vw;
   }
   
   .auth-modal-header h2 {
-    font-size: 24px;
+    font-size: 1.1rem;
   }
   
   .auth-modal-header p {
-    font-size: 14px;
+    font-size: 0.85rem;
   }
   
   .form-group input {
-    padding: 12px 16px;
-    font-size: 14px;
+    padding: 10px 6px;
+    font-size: 13px;
   }
   
   .auth-submit-btn {
     padding: 14px 20px;
     font-size: 14px;
+  }
+
+  .auth-modal.signup-mode {
+    min-height: 340px;
   }
 } 

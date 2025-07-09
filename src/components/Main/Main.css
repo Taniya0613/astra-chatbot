@@ -54,12 +54,19 @@
   margin: auto;
 }
 
-.main .greet{
+/* .main .greet{
   margin: 50px 0px;
   font-size: 56px;
   color: #a87d7d;
   font-weight: 500;
   padding: 20px;
+} */
+.main .greet {
+  margin: 1px 0px;
+  font-size: 56px;
+  color: #a87d7d;
+  font-weight: 500;
+  padding: 2px;
 }
 
 .main .greet span{
@@ -71,8 +78,10 @@
 .main .cards{
   display: grid;
   grid-template-columns: repeat(auto-fill,minmax(180px,1fr));
-  gap: 15px;
-  padding: 20px;
+  /* gap: 15px;
+  padding: 20px; */
+  gap: 10px;
+  padding: 32px;
 }
 
 .main .card{
@@ -83,6 +92,7 @@
   position: relative;
   cursor: pointer;
 }
+
 
 .main .card img{
   width: 35px;

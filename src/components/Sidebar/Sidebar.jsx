@@ -2,20 +2,21 @@ import React, { useContext, useState, useEffect } from "react";
 import "./Sidebar.css";
 import { assets } from "../../assets/assets";
 import { Context } from "../../context/context";
-import HelpModal from "../HelpModal";
+import HelpModal from "../modals/HelpModal";
+// import { Link, useLocation, useNavigate } from "react-router-dom";
 
-const Sidebar = () => {
+const Sidebar = ({ onOpenActivityModal, onOpenSettingsModal }) => {
   const [extended, setExtended] = useState(false);
   const [isHelpModalOpen, setIsHelpModalOpen] = useState(false);
-  const { 
-    onSent, 
-    prevPrompts, 
-    setRecentPrompt, 
-    newChat, 
-    chatHistory, 
-    loadChatHistory, 
+  const {
+    onSent,
+    prevPrompts,
+    setRecentPrompt,
+    newChat,
+    chatHistory,
+    loadChatHistory,
     isAuthenticated,
-    deleteChatFromBackend
+    deleteChatFromBackend,
   } = useContext(Context);
 
   // Load chat history when component mounts or when user becomes authenticated
@@ -32,7 +33,7 @@ const Sidebar = () => {
 
   const handleDeleteChat = async (e, chatId) => {
     e.stopPropagation(); // Prevent triggering the loadPrompt function
-    if (window.confirm('Are you sure you want to delete this chat?')) {
+    if (window.confirm("Are you sure you want to delete this chat?")) {
       await deleteChatFromBackend(chatId);
     }
   };
@@ -90,11 +91,19 @@ const Sidebar = () => {
           <img src={assets.question_icon} alt="" />
           {extended ? <p>Help</p> : null}
         </div>
-        <div className="bottom-item recent-entry">
+        <div
+          className="bottom-item recent-entry"
+          onClick={onOpenActivityModal}
+          style={{ cursor: "pointer" }}
+        >
           <img src={assets.history_icon} alt="" />
           {extended ? <p>Activity</p> : null}
         </div>
-        <div className="bottom-item recent-entry">
+        <div
+          className="bottom-item recent-entry"
+          onClick={onOpenSettingsModal}
+          style={{ cursor: "pointer" }}
+        >
           <img src={assets.setting_icon} alt="" />
           {extended ? <p>Settings</p> : null}
         </div>

@@ -1,18 +1,24 @@
-import React, { useState, useEffect, useContext } from 'react'
-import Sidebar from './components/Sidebar/Sidebar'
-import Main from './components/Main/Main'
-import AuthModal from './components/AuthModal/AuthModal'
-import { Context } from './context/context'
+import React, { useState, useEffect, useContext } from "react";
+import Sidebar from "./components/Sidebar/Sidebar";
+import Main from "./components/Main/Main";
+import AuthModal from "./components/AuthModal/AuthModal";
+import { Context } from "./context/context";
+import Activity from "./components/modals/Activity";
+import Settings from "./components/modals/Settings";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 const App = () => {
   const [showAuthModal, setShowAuthModal] = useState(false);
-  const { isAuthenticated, setIsAuthenticated, loadChatHistory } = useContext(Context);
+  const [isActivityModalOpen, setIsActivityModalOpen] = useState(false);
+  const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
+  const { isAuthenticated, setIsAuthenticated, loadChatHistory } =
+    useContext(Context);
 
   useEffect(() => {
     // Check if user is already authenticated
-    const token = localStorage.getItem('authToken');
-    const user = localStorage.getItem('user');
-    
+    const token = localStorage.getItem("authToken");
+    const user = localStorage.getItem("user");
+
     if (token && user) {
       setIsAuthenticated(true);
       loadChatHistory();
@@ -30,16 +36,47 @@ const App = () => {
     setShowAuthModal(false);
   };
 
+  const handleOpenActivityModal = () => {
+    setIsActivityModalOpen(true);
+    setIsSettingsModalOpen(false);
+  };
+
+  const handleCloseActivityModal = () => {
+    setIsActivityModalOpen(false);
+  };
+
+  const handleOpenSettingsModal = () => {
+    setIsSettingsModalOpen(true);
+    setIsActivityModalOpen(false);
+  };
+
+  const handleCloseSettingsModal = () => {
+    setIsSettingsModalOpen(false);
+  };
+
   return (
-    <>
-      <Sidebar/>
-      <Main/>
-      <AuthModal 
-        isOpen={showAuthModal && !isAuthenticated} 
+    <Router basename="/astra-chatbot">
+      <Sidebar
+        onOpenActivityModal={handleOpenActivityModal}
+        onOpenSettingsModal={handleOpenSettingsModal}
+      />
+      <Routes>
+        <Route path="/" element={<Main />} />
+      </Routes>
+      <Activity
+        isOpen={isActivityModalOpen}
+        onClose={handleCloseActivityModal}
+      />
+      <Settings
+        isOpen={isSettingsModalOpen}
+        onClose={handleCloseSettingsModal}
+      />
+      <AuthModal
+        isOpen={showAuthModal && !isAuthenticated}
         onClose={handleCloseAuthModal}
       />
-    </>
-  )
-}
+    </Router>
+  );
+};
 
-export default App
+export default App;
