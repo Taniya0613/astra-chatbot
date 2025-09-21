@@ -1,13 +1,15 @@
+// Controller functions for chat-related API endpoints
 import ChatHistory from '../models/ChatHistory.js';
 
-// @desc    Save chat prompt and response
+// @desc    Save chat prompt and response for a user
 // @route   POST /api/chat/save
 // @access  Private
 export const saveChat = async (req, res) => {
   try {
     const { prompt, response } = req.body;
-    const userId = req.user.id;
+    const userId = req.user.id; // User ID from authentication middleware
 
+    // Validate required fields
     if (!prompt || !response) {
       return res.status(400).json({
         success: false,
@@ -15,6 +17,7 @@ export const saveChat = async (req, res) => {
       });
     }
 
+    // Create a new chat entry in the database
     const chatEntry = await ChatHistory.create({
       userId,
       prompt,
@@ -96,7 +99,7 @@ export const getRecentChats = async (req, res) => {
     const limit = parseInt(req.query.limit) || 10;
 
     const recentChats = await ChatHistory.find({ userId })
-      .select('prompt timestamp isFavorite')
+      .select('prompt response timestamp isFavorite')
       .sort({ timestamp: -1 })
       .limit(limit);
 

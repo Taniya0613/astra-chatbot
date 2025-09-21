@@ -1,3 +1,4 @@
+// Express routes for chat-related API endpoints
 import express from 'express';
 import { 
   saveChat, 
@@ -12,7 +13,7 @@ import { handleValidationErrors } from '../middleware/validate.js';
 
 const router = express.Router();
 
-// Validation for saving chat
+// Validation rules for saving a chat
 const validateSaveChat = [
   body('prompt')
     .trim()
@@ -24,7 +25,7 @@ const validateSaveChat = [
     .withMessage('Response is required')
 ];
 
-// All routes are protected (require authentication)
+// All routes below require authentication
 router.use(protect);
 
 // Save chat prompt and response

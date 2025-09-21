@@ -1,3 +1,4 @@
+// Express server setup for Astra Chatbot backend
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
@@ -5,7 +6,7 @@ import dotenv from 'dotenv';
 import authRoutes from './routes/auth.js';
 import chatRoutes from './routes/chat.js';
 
-// Load environment variables
+// Load environment variables from config.env
 dotenv.config({ path: './config.env' });
 
 const app = express();
@@ -52,20 +53,22 @@ app.use('*', (req, res) => {
   });
 });
 
-// Connect to MongoDB
+// Start server
+const PORT = process.env.PORT || 5000;
+
+// Function to connect to MongoDB
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(process.env.MONGODB_URI);
-
-    console.log(`MongoDB Connected: ${conn.connection.host}`);
+    await mongoose.connect(process.env.MONGODB_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log('MongoDB connected');
   } catch (error) {
     console.error('MongoDB connection error:', error);
     process.exit(1);
   }
 };
-
-// Start server
-const PORT = process.env.PORT || 5000;
 
 const startServer = async () => {
   try {

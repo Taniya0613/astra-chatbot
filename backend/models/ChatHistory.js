@@ -1,10 +1,12 @@
+// Mongoose schema for storing chat history entries
 import mongoose from 'mongoose';
 import mongoosePaginate from 'mongoose-paginate-v2';
 
+// Define the schema for a chat history entry
 const chatHistorySchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    ref: 'User', // Reference to the User model
     required: true
   },
   prompt: {
@@ -29,10 +31,10 @@ const chatHistorySchema = new mongoose.Schema({
     trim: true
   }]
 }, {
-  timestamps: true
+  timestamps: true // Automatically adds createdAt and updatedAt fields
 });
 
-// Index for faster queries
+// Index for faster queries by user and timestamp
 chatHistorySchema.index({ userId: 1, timestamp: -1 });
 chatHistorySchema.index({ userId: 1, isFavorite: 1 });
 

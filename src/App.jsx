@@ -1,3 +1,4 @@
+// Root App component. Sets up routing, authentication modal, and global modals.
 import React, { useState, useEffect, useContext } from "react";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Main from "./components/Main/Main";
@@ -8,9 +9,11 @@ import Settings from "./components/modals/Settings";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 const App = () => {
+  // State for showing/hiding modals
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [isActivityModalOpen, setIsActivityModalOpen] = useState(false);
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
+  // Get authentication and chat history functions from context
   const { isAuthenticated, setIsAuthenticated, loadChatHistory } =
     useContext(Context);
 
@@ -32,6 +35,7 @@ const App = () => {
     }
   }, [setIsAuthenticated, loadChatHistory]);
 
+  // Handlers for opening/closing modals
   const handleCloseAuthModal = () => {
     setShowAuthModal(false);
   };

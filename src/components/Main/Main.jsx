@@ -1,3 +1,4 @@
+// Main chat interface component. Handles chat display, user input, and profile popup.
 import React, { useContext, useRef, useState, useEffect } from "react";
 import "./Main.css";
 import { assets } from "../../assets/assets";
@@ -6,6 +7,7 @@ import VoiceInput from "../common/VoiceInput";
 import ImageUpload from "../common/ImageUpload";
 
 const Main = () => {
+  // Destructure context values for chat and authentication
   const {
     onSent,
     recentPrompt,
@@ -19,6 +21,7 @@ const Main = () => {
     logout,
   } = useContext(Context);
 
+  // Get user info from localStorage if authenticated
   const user = isAuthenticated
     ? JSON.parse(localStorage.getItem("user") || "{}")
     : null;
@@ -26,7 +29,7 @@ const Main = () => {
   const profileRef = useRef(null);
   const popupRef = useRef(null);
 
-  // Hide popup when clicking outside
+  // Hide profile popup when clicking outside of it
   useEffect(() => {
     if (!showProfilePopup) return;
     const handleClick = (e) => {

@@ -1,11 +1,14 @@
+// HelpModal component. Provides help, FAQ, and feature guide in a modal popup.
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { assets } from "../../assets/assets";
 
 const HelpModal = ({ isOpen, onClose }) => {
+  // State for expanded FAQ and active tab (guide/faq)
   const [expandedFaq, setExpandedFaq] = useState(null);
   const [activeTab, setActiveTab] = useState("guide");
 
+  // List of FAQs
   const faqs = [
     {
       question: "How do I start a new chat?",
@@ -34,6 +37,7 @@ const HelpModal = ({ isOpen, onClose }) => {
     },
   ];
 
+  // List of features for the guide tab
   const features = [
     {
       icon: assets.plus_icon,
@@ -57,10 +61,12 @@ const HelpModal = ({ isOpen, onClose }) => {
     },
   ];
 
+  // Handler for email support button
   const handleEmailSupport = () => {
     window.location.href = "mailto:support@astra.ai?subject=Help%20Request";
   };
 
+  // Handler for documentation button
   const handleDocumentation = () => {
     // You can replace this with your actual documentation URL
     window.open("https://docs.astra.ai", "_blank");

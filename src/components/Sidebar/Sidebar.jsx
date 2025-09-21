@@ -1,3 +1,4 @@
+// Sidebar component for navigation and chat history. Handles help modal, activity, and settings.
 import React, { useContext, useState, useEffect } from "react";
 import "./Sidebar.css";
 import { assets } from "../../assets/assets";
@@ -6,8 +7,10 @@ import HelpModal from "../modals/HelpModal";
 // import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Sidebar = ({ onOpenActivityModal, onOpenSettingsModal }) => {
+  // State for sidebar extension and help modal
   const [extended, setExtended] = useState(false);
   const [isHelpModalOpen, setIsHelpModalOpen] = useState(false);
+  // Get context values for chat and authentication
   const {
     onSent,
     prevPrompts,
@@ -17,6 +20,7 @@ const Sidebar = ({ onOpenActivityModal, onOpenSettingsModal }) => {
     loadChatHistory,
     isAuthenticated,
     deleteChatFromBackend,
+    loadExistingChat,
   } = useContext(Context);
 
   // Load chat history when component mounts or when user becomes authenticated
@@ -26,13 +30,9 @@ const Sidebar = ({ onOpenActivityModal, onOpenSettingsModal }) => {
     }
   }, [isAuthenticated, loadChatHistory]);
 
-  const loadPrompt = async (prompt) => {
-    setRecentPrompt(prompt);
-    await onSent(prompt);
-  };
-
+  // Handle chat deletion with confirmation
   const handleDeleteChat = async (e, chatId) => {
-    e.stopPropagation(); // Prevent triggering the loadPrompt function
+    e.stopPropagation(); // Prevent triggering the loadExistingChat function
     if (window.confirm("Are you sure you want to delete this chat?")) {
       await deleteChatFromBackend(chatId);
     }
@@ -59,7 +59,7 @@ const Sidebar = ({ onOpenActivityModal, onOpenSettingsModal }) => {
                 return (
                   <div
                     key={chat._id || index}
-                    onClick={() => loadPrompt(chat.prompt)}
+                    onClick={() => loadExistingChat(chat)}
                     className="recent-entry"
                   >
                     <img src={assets.message_icon} alt="" />

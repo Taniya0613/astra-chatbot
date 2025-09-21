@@ -1,3 +1,4 @@
+// Activity modal component. Displays user activity or chat logs in a modal popup.
 import React, { useRef, useEffect } from "react";
 
 const Activity = ({ isOpen, onClose }) => {
@@ -5,6 +6,7 @@ const Activity = ({ isOpen, onClose }) => {
   // Animation state for smooth transition
   const [show, setShow] = React.useState(false);
 
+  // Handle show/hide animation based on isOpen prop
   useEffect(() => {
     if (isOpen) {
       setShow(true);
@@ -15,7 +17,7 @@ const Activity = ({ isOpen, onClose }) => {
     }
   }, [isOpen]);
 
-  // Close modal when clicking outside
+  // Close modal when clicking outside the modal area
   useEffect(() => {
     if (!isOpen) return;
     const handleClickOutside = (event) => {
@@ -29,6 +31,7 @@ const Activity = ({ isOpen, onClose }) => {
     };
   }, [isOpen, onClose]);
 
+  // Don't render if not open and animation is finished
   if (!isOpen && !show) return null;
 
   return (

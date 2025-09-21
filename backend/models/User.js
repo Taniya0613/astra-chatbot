@@ -1,6 +1,8 @@
+// Mongoose schema for user accounts
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 
+// Define the schema for a user
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -35,10 +37,10 @@ const userSchema = new mongoose.Schema({
     default: Date.now
   }
 }, {
-  timestamps: true
+  timestamps: true // Automatically adds createdAt and updatedAt fields
 });
 
-// Hash password before saving
+// Hash password before saving the user document
 userSchema.pre('save', async function(next) {
   if (!this.isModified('password')) return next();
   
