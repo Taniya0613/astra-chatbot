@@ -25,7 +25,9 @@ const AuthModal = ({ isOpen, onClose }) => {
   const [success, setSuccess] = useState("");
 
   // API base URL for backend requests
-  const API_BASE_URL = "http://localhost:5001/api";
+  const API_BASE_URL = import.meta.env.PROD 
+    ? "https://astra-chatbot-backend.vercel.app/api" 
+    : "http://localhost:5001/api";
   // Get authentication and chat history functions from context
   const { setIsAuthenticated, loadChatHistory } = useContext(Context);
 

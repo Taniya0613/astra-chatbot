@@ -59,7 +59,7 @@ const App = () => {
   };
 
   return (
-    <Router basename="/astra-chatbot">
+    <Router basename="/">
       <Sidebar
         onOpenActivityModal={handleOpenActivityModal}
         onOpenSettingsModal={handleOpenSettingsModal}
